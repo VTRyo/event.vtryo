@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesshie & VTRyo Night! | 特別コース料理イベント</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <script>
+    // ===== 編集可能なデータ構造 =====
+    // このセクションを編集することで、サイト全体の内容を簡単に更新できます
+    const EVENT_CONFIG = {
+        event: {
+            title: "Tesshie & VTRyo Night!",
+            catchphrase: "二人のシェフが織りなす、一夜限りの特別な味わい",
+            date: "2025-08-23",
+            time: "18:00 - 21:00",
+            description: "マネーフォワードChief Food Officer 二人のシェフが腕を振るう特別なディナーイベントにご招待します。"
+        },
+        chefs: [
+            {
+                name: "Tesshie",
+                fullName: "手島 尚人",
+                profile: "福岡出身。和洋を問わずジャンルに縛られない料理を追求。趣味の延長で始めたホームパーティではコース料理をふるまい、社員を唸らせてきた。味だけでなく、見た目や構成にもこだわる。特技は食べた料理の解析と再現で、意外性のある食材の組み合わせに可能性を感じている。現在はバー「AFTER THE RAIN」でお酒と料理の修行中。ハイボールと記憶に残る特別な一皿を、あなたに。",
+                speciality: "洋食、和食、ハイボール",
+                image: "https://i.gyazo.com/555d73d429b0bbfc4d633d5e3915cda1.png"
+            },
+            {
+                name: "VTRyo",
+                fullName: "りょう",
+                profile: "伊豆大島出身。ラーメンとカレーをこよなく愛する。カレーはスリランカ現地でも食べるほどスリランカ派。得意なお酒はビール。クラフトビール審査員資格を持ち、ジャパン・グレートビア・アワーズ2025では審査員として参加した。世界一ビールを飲む国民がいるチェコに2年連続で訪問。黄金色のラガービールを現地民と飲み明かすのが好き。ペアリング、銘柄、注ぎ方などご質問があればなんなりと。",
+                speciality: "スパイスカレー、ビール",
+                image: "https://pbs.twimg.com/profile_images/1002160404389289984/hzz5vzx3_400x400.jpg"
+            }
+        ],
+        courses: [
+            {
+                name: "前菜",
+                description: "",
+                image: "https://placehold.jp/e8c39e/ffffff/400x300.png?text=前菜"
+            },
+            {
+                name: "メインディッシュ",
+                description: "",
+                image: "https://placehold.jp/e8c39e/ffffff/400x300.png?text=メイン"
+            },
+        ],
+        drinks: [
+            {
+                category: "ワイン",
+                items: [
+                    { name: "シャルドネ（白）", description: "フルーティーな香りと爽やかな酸味", price: 1200 },
+                    { name: "カベルネ・ソーヴィニヨン（赤）", description: "濃厚な果実味とタンニン", price: 1200 },
+                    { name: "スパークリングワイン", description: "祝福の場にふさわしい華やかな泡立ち", price: 1500 }
+                ]
+            },
+            {
+                category: "日本酒",
+                items: [
+                    { name: "純米大吟醸", description: "フルーティーでまろやかな味わい", price: 1300 },
+                    { name: "特別純米酒", description: "米の旨味が感じられる辛口", price: 1100 }
+                ]
+            },
+            {
+                category: "カクテル",
+                items: [
+                    { name: "パッションフルーツモヒート", description: "南国フルーツの爽やかさとミントの清涼感", price: 1200 },
+                    { name: "スパイシージンジャーモスコミュール", description: "ジンジャーの辛さとライムの酸味", price: 1200 },
+                    { name: "レモングラスとライムのトム・コリンズ", description: "エスニックな香りとジンの相性が抜群", price: 1300 }
+                ]
+            },
+            {
+                category: "ノンアルコール",
+                items: [
+                    { name: "ハーブティー", description: "オリジナルブレンドの香り高いハーブティー", price: 800 },
+                    { name: "トロピカルフルーツジュース", description: "季節のフルーツを使った特製ジュース", price: 900 },
+                    { name: "スパイスチャイ", description: "本格的なスパイスの香りが楽しめるチャイ", price: 800 }
+                ]
+            }
+        ],
+        pricing: {
+            course: 5000,
+        },
+        venue: {
+            name: "食の交流拠点 るるるる",
+            address: "〒811-3101 福岡県古賀市天神１丁目４−３５ 間借り",
+            phone: "03-1234-5678",
+            access: "博多から電車で20分",
+            mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d526.8098452019909!2d130.46387913037717!3d33.7324407495603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x354189dda145f4df%3A0xc39850c77f954656!2z6aOf44Gu5Lqk5rWB5oug54K5IOOCi-OCi-OCi-OCiw!5e0!3m2!1sja!2sjp!4v1748417056264!5m2!1sja!2sjp"
+        }
+    };
+    </script>
+
+    <!-- ナビゲーションバー -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Tesshie & VTRyo Night!</div>
+            <ul class="nav-links">
+                <li><a href="#home">ホーム</a></li>
+                <li><a href="#chefs">シェフ</a></li>
+                <li><a href="#course">コース</a></li>
+                <li><a href="#drinks">ドリンク</a></li>
+                <li><a href="#pricing">料金</a></li>
+                <li><a href="#venue">会場</a></li>
+                <li><a href="#reservation" class="btn-reserve">予約する</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ヒーローセクション -->
+    <section id="home" class="hero">
+        <div class="overlay"></div>
+        <div class="container">
+            <h1 id="event-title"></h1>
+            <p id="event-catchphrase" class="subtitle"></p>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <span id="days">00</span>
+                    <span class="countdown-label">日</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="hours">00</span>
+                    <span class="countdown-label">時間</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="minutes">00</span>
+                    <span class="countdown-label">分</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="seconds">00</span>
+                    <span class="countdown-label">秒</span>
+                </div>
+            </div>
+            <p id="event-date" class="date"></p>
+            <a href="#reservation" class="btn-primary">今すぐ予約する</a>
+        </div>
+    </section>
+
+    <!-- シェフプロフィール -->
+    <section id="chefs" class="chefs">
+        <div class="container">
+            <h2 class="section-title">シェフ紹介</h2>
+            <p class="section-subtitle">二人の個性が織りなす、特別な一夜</p>
+            <div class="chefs-container" id="chefs-container">
+                <!-- シェフプロフィールはJavaScriptで動的に生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- コース詳細 -->
+    <section id="course" class="course">
+        <div class="container">
+            <h2 class="section-title">コース料理</h2>
+            <p class="section-subtitle">洋食とエスニックの絶妙な融合</p>
+            <div class="course-container" id="course-container">
+                <!-- コース詳細はJavaScriptで動的に生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ドリンクメニュー -->
+    <section id="drinks" class="drinks">
+        <div class="container">
+            <h2 class="section-title">ドリンクメニュー</h2>
+            <p class="section-subtitle">料理を引き立てる厳選ドリンク</p>
+            <div class="drinks-container" id="drinks-container">
+                <!-- ドリンクメニューはJavaScriptで動的に生成 -->
+            </div>
+            <div class="pairing-info">
+                <h3>ペアリングについて</h3>
+                <p>コース料理に合わせた特別なドリンクペアリングもご用意しております。各料理の魅力を最大限に引き出す組み合わせをお楽しみください。</p>
+                <p>ペアリングをご希望の方は、予約時にお申し付けください。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 参加費・予約情報 -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">料金</h2>
+            <p class="section-subtitle">特別な一夜をお手頃価格で</p>
+            <div class="pricing-container">
+                <div class="pricing-card">
+                    <h3>コース料理</h3>
+                    <div class="price" id="course-price"></div>
+                    <ul>
+                        <li>前菜</li>
+                        <li>メインディッシュ</li>
+                        <li>デザート</li>
+                        <li>コーヒーまたは紅茶</li>
+                    </ul>
+                </div>
+                <div class="pricing-card">
+                    <h3>ドリンクペアリング</h3>
+                    <div class="price" id="drinks-price"></div>
+                    <ul>
+                        <li>前菜に合わせたドリンク</li>
+                        <li>メインに合わせたドリンク</li>
+                        <li>デザートに合わせたドリンク</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="tax-info" id="tax-info"></p>
+            <div class="payment-info">
+                <h3>お支払い方法</h3>
+                <p>クレジットカード（VISA, MasterCard, JCB, AMEX）、現金、QRコード決済（PayPay, LINE Pay）がご利用いただけます。</p>
+            </div>
+            <div class="reservation-button">
+                <a href="#reservation" class="btn-primary">予約する</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 会場情報 -->
+    <section id="venue" class="venue">
+        <div class="container">
+            <h2 class="section-title">会場情報</h2>
+            <p class="section-subtitle">アクセス便利な都心の隠れ家レストラン</p>
+            <div class="venue-container">
+                <div class="venue-info">
+                    <h3 id="venue-name"></h3>
+                    <p id="venue-address"></p>
+                    <p id="venue-phone"></p>
+                    <h4>アクセス</h4>
+                    <p id="venue-access"></p>
+                </div>
+                <div class="venue-map" id="venue-map">
+                    <!-- 地図はJavaScriptで動的に生成 -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 予約モーダル -->
+    <div id="reservation" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>ご予約</h2>
+            <form id="reservation-form">
+                <div class="form-group">
+                    <label for="name">お名前</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">電話番号</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="guests">人数</label>
+                    <select id="guests" name="guests" required>
+                        <option value="1">1名</option>
+                        <option value="2" selected>2名</option>
+                        <option value="3">3名</option>
+                        <option value="4">4名</option>
+                        <option value="5">5名</option>
+                        <option value="6">6名</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pairing">ドリンクペアリング</label>
+                    <select id="pairing" name="pairing">
+                        <option value="yes">希望する</option>
+                        <option value="no">希望しない</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">備考</label>
+                    <textarea id="notes" name="notes" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">予約を確定する</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">tessi-&VTRyo Night!</div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="#home">ホーム</a></li>
+                        <li><a href="#chefs">シェフ</a></li>
+                        <li><a href="#course">コース</a></li>
+                        <li><a href="#drinks">ドリンク</a></li>
+                        <li><a href="#pricing">料金</a></li>
+                        <li><a href="#venue">会場</a></li>
+                    </ul>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 tessi-&VTRyo Night! All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

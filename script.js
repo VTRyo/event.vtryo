@@ -1,87 +1,58 @@
 // DOM要素が読み込まれた後に実行
 document.addEventListener('DOMContentLoaded', function() {
-    // ===== データの適用 =====
-    // ヒーローセクションの更新
+    // イベント情報の表示
     document.getElementById('event-title').textContent = EVENT_CONFIG.event.title;
     document.getElementById('event-catchphrase').textContent = EVENT_CONFIG.event.catchphrase;
-    document.getElementById('event-date').textContent = `${formatDate(EVENT_CONFIG.event.date)} ${EVENT_CONFIG.event.time}`;
+    document.getElementById('event-date').textContent = formatDate(EVENT_CONFIG.event.date) + ' ' + EVENT_CONFIG.event.time;
     
-    // カウントダウンタイマーの設定
+    // カウントダウンタイマーの開始
     startCountdown(EVENT_CONFIG.event.date);
     
     // シェフプロフィールの生成
     generateChefProfiles();
     
-    // コース詳細の生成
-    generateCourseDetails();
+    // ギャラリーの初期化
+    initGallery();
     
-    // ドリンクメニューの生成
-    generateDrinkMenu();
+    // ヒーロー背景スライドショーの初期化
+    initHeroSlideshow();
     
-    // 料金情報の更新
-    updatePricing();
+    // 会場情報の表示
+    document.getElementById('venue-name').textContent = EVENT_CONFIG.venue.name;
+    document.getElementById('venue-address').textContent = EVENT_CONFIG.venue.address;
+    document.getElementById('venue-phone').textContent = EVENT_CONFIG.venue.phone;
+    document.getElementById('venue-access').textContent = EVENT_CONFIG.venue.access;
     
-    // 会場情報の更新
-    updateVenueInfo();
+    // 地図の埋め込み
+    const venueMap = document.getElementById('venue-map');
+    const iframe = document.createElement('iframe');
+    iframe.src = EVENT_CONFIG.venue.mapEmbed;
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('loading', 'lazy');
+    iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+    venueMap.appendChild(iframe);
     
-    // ===== イベントリスナー =====
     // ハンバーガーメニューの動作
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
     
-    hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
+    if (hamburger) {
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
     
     // ナビゲーションリンクをクリックしたらメニューを閉じる
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', function() {
+    const navItems = document.querySelectorAll('.nav-links a');
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
             hamburger.classList.remove('active');
             navLinks.classList.remove('active');
         });
     });
-    
-    // モーダルの動作
-    const modal = document.getElementById('reservation');
-    const reserveButtons = document.querySelectorAll('.btn-reserve, .btn-primary');
-    const closeButton = document.querySelector('.close-button');
-    
-    reserveButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            if (this.getAttribute('href') === '#reservation') {
-                e.preventDefault();
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
-        });
-    });
-    
-    closeButton.addEventListener('click', function() {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    });
-    
-    window.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-    });
-    
-    // 予約フォームの送信
-    const reservationForm = document.getElementById('reservation-form');
-    
-    reservationForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('予約が完了しました。ご予約の詳細は登録されたメールアドレスに送信されます。');
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-        this.reset();
-    });
 });
 
-// ===== ユーティリティ関数 =====
 // 日付のフォーマット
 function formatDate(dateString) {
     const date = new Date(dateString);
@@ -93,17 +64,20 @@ function formatDate(dateString) {
     return `${year}年${month}月${day}日(${dayOfWeek})`;
 }
 
-// カウントダウンタイマーの開始
+// カウントダウンタイマー
 function startCountdown(dateString) {
     const targetDate = new Date(dateString);
-    targetDate.setHours(targetDate.getHours() + 18); // 18:00開始と仮定
+    targetDate.setHours(18, 0, 0, 0); // 18:00に設定
     
     function updateCountdown() {
-        const currentDate = new Date();
-        const difference = targetDate - currentDate;
+        const now = new Date();
+        const difference = targetDate - now;
         
         if (difference <= 0) {
-            document.querySelector('.countdown').innerHTML = '<p>イベント開催中！</p>';
+            document.getElementById('days').textContent = '00';
+            document.getElementById('hours').textContent = '00';
+            document.getElementById('minutes').textContent = '00';
+            document.getElementById('seconds').textContent = '00';
             return;
         }
         
@@ -125,97 +99,114 @@ function startCountdown(dateString) {
 // シェフプロフィールの生成
 function generateChefProfiles() {
     const container = document.getElementById('chefs-container');
-    let html = '';
     
     EVENT_CONFIG.chefs.forEach(chef => {
-        html += `
-            <div class="chef-card">
-                <img src="${chef.image}" alt="${chef.name}" class="chef-image">
-                <div class="chef-info">
-                    <h3 class="chef-name">${chef.fullName} (${chef.name})</h3>
-                    <p class="chef-specialty">専門: ${chef.speciality}</p>
-                    <p class="chef-bio">${chef.profile}</p>
-                </div>
+        const chefCard = document.createElement('div');
+        chefCard.className = 'chef-card';
+        
+        const imageHtml = chef.image 
+            ? `<img src="${chef.image}" alt="${chef.fullName}" class="chef-image">`
+            : `<div class="chef-image" style="background-color: #e8c39e; display: flex; align-items: center; justify-content: center;"><span style="font-size: 2rem; color: white;">${chef.name.charAt(0)}</span></div>`;
+        
+        chefCard.innerHTML = `
+            ${imageHtml}
+            <div class="chef-info">
+                <h3 class="chef-name">${chef.fullName} (${chef.name})</h3>
+                <p class="chef-specialty">専門: ${chef.speciality}</p>
+                <p class="chef-bio">${chef.profile}</p>
             </div>
-        `;
-    });
-    
-    container.innerHTML = html;
-}
-
-// コース詳細の生成
-function generateCourseDetails() {
-    const container = document.getElementById('course-container');
-    let html = '';
-    
-    EVENT_CONFIG.courses.forEach(course => {
-        html += `
-            <div class="course-item">
-                <div class="course-image">
-                    <img src="${course.image}" alt="${course.name}">
-                </div>
-                <div class="course-info">
-                    <h3 class="course-name">${course.name}</h3>
-                    <p class="course-description">${course.description}</p>
-                </div>
-            </div>
-        `;
-    });
-    
-    container.innerHTML = html;
-}
-
-// ドリンクメニューの生成
-function generateDrinkMenu() {
-    const container = document.getElementById('drinks-container');
-    let html = '';
-    
-    EVENT_CONFIG.drinks.forEach(category => {
-        html += `
-            <div class="drink-category">
-                <h3 class="category-title">${category.category}</h3>
-                <div class="drink-list">
         `;
         
-        category.items.forEach(drink => {
-            html += `
-                <div class="drink-item">
-                    <div class="drink-name">
-                        ${drink.name}
-                        <span class="drink-price">¥${drink.price.toLocaleString()}</span>
-                    </div>
-                    <p class="drink-description">${drink.description}</p>
-                </div>
-            `;
-        });
+        container.appendChild(chefCard);
+    });
+}
+
+// ギャラリーの初期化
+function initGallery() {
+    const slidesContainer = document.getElementById('gallery-slides');
+    const prevButton = document.getElementById('gallery-prev');
+    const nextButton = document.getElementById('gallery-next');
+    let currentSlide = 0;
+    
+    // ギャラリー画像のスライドを生成
+    EVENT_CONFIG.gallery.forEach((image, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'gallery-slide';
+        slide.style.backgroundImage = `url('${image}')`;
         
-        html += `
-                </div>
-            </div>
-        `;
+        if (index === 0) {
+            slide.classList.add('active');
+        }
+        
+        slidesContainer.appendChild(slide);
     });
     
-    container.innerHTML = html;
+    const slides = document.querySelectorAll('.gallery-slide');
+    const totalSlides = slides.length;
+    
+    // 前のスライドに移動
+    prevButton.addEventListener('click', () => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        slides[currentSlide].classList.add('active');
+    });
+    
+    // 次のスライドに移動
+    nextButton.addEventListener('click', () => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % totalSlides;
+        slides[currentSlide].classList.add('active');
+    });
+    
+    // タッチスワイプ対応（モバイル向け）
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    slidesContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, false);
+    
+    slidesContainer.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, false);
+    
+    function handleSwipe() {
+        if (touchEndX < touchStartX) {
+            // 左スワイプ（次へ）
+            nextButton.click();
+        } else if (touchEndX > touchStartX) {
+            // 右スワイプ（前へ）
+            prevButton.click();
+        }
+    }
 }
 
-// 料金情報の更新
-function updatePricing() {
-    const coursePrice = document.getElementById('course-price');
-    const drinksPrice = document.getElementById('drinks-price');
-    const taxInfo = document.getElementById('tax-info');
+// ヒーロー背景スライドショーの初期化
+function initHeroSlideshow() {
+    const slideshowContainer = document.querySelector('.hero-slideshow');
+    let currentSlide = 0;
     
-    coursePrice.textContent = `¥${EVENT_CONFIG.pricing.course.toLocaleString()}`;
-    drinksPrice.textContent = `¥${EVENT_CONFIG.pricing.drinksPairing.toLocaleString()}`;
-    taxInfo.textContent = `※表示価格は${EVENT_CONFIG.pricing.tax}%の消費税を含みます`;
-}
-
-// 会場情報の更新
-function updateVenueInfo() {
-    document.getElementById('venue-name').textContent = EVENT_CONFIG.venue.name;
-    document.getElementById('venue-address').textContent = EVENT_CONFIG.venue.address;
-    document.getElementById('venue-phone').textContent = EVENT_CONFIG.venue.phone;
-    document.getElementById('venue-access').textContent = EVENT_CONFIG.venue.access;
+    // スライドを生成
+    EVENT_CONFIG.heroBackgrounds.forEach((image, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        slide.style.backgroundImage = `url('${image}')`;
+        
+        if (index === 0) {
+            slide.classList.add('active');
+        }
+        
+        slideshowContainer.appendChild(slide);
+    });
     
-    const mapContainer = document.getElementById('venue-map');
-    mapContainer.innerHTML = `<iframe src="${EVENT_CONFIG.venue.mapEmbed}" allowfullscreen="" loading="lazy"></iframe>`;
+    const slides = document.querySelectorAll('.hero-slideshow .slide');
+    const totalSlides = slides.length;
+    
+    // 3秒ごとに背景画像を切り替え
+    setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % totalSlides;
+        slides[currentSlide].classList.add('active');
+    }, 3000);
 }

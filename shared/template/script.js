@@ -1,5 +1,23 @@
 // DOM要素が読み込まれた後に実行
 document.addEventListener('DOMContentLoaded', function() {
+    // 現在のパスからイベント情報を取得
+    const currentPath = window.location.pathname;
+    const pathParts = currentPath.split('/').filter(part => part);
+    
+    // パスが /fukuoka/2025/tesshie_vtryo_night の形式の場合の処理
+    let eventImageBasePath = '/images';
+    if (pathParts.length >= 3) {
+        const location = pathParts[0];
+        const year = pathParts[1]; 
+        const eventName = pathParts[2];
+        eventImageBasePath = `/images/${location}/${year}/${eventName}`;
+    }
+    
+    // 画像パス構築関数
+    window.buildImagePath = function(relativePath) {
+        return eventImageBasePath + '/' + relativePath;
+    };
+    
     // イベント情報の表示
     document.getElementById('event-title').textContent = EVENT_CONFIG.event.title;
     document.getElementById('event-catchphrase').textContent = EVENT_CONFIG.event.catchphrase;
@@ -132,7 +150,7 @@ function initGallery() {
     EVENT_CONFIG.gallery.forEach((image, index) => {
         const slide = document.createElement('div');
         slide.className = 'gallery-slide';
-        slide.style.backgroundImage = `url('${image}')`;
+        slide.style.backgroundImage = `url('${window.buildImagePath(image)}')`;
         
         if (index === 0) {
             slide.classList.add('active');
@@ -191,7 +209,7 @@ function initHeroSlideshow() {
     EVENT_CONFIG.heroBackgrounds.forEach((image, index) => {
         const slide = document.createElement('div');
         slide.className = 'slide';
-        slide.style.backgroundImage = `url('${image}')`;
+        slide.style.backgroundImage = `url('${window.buildImagePath(image)}')`;
         
         if (index === 0) {
             slide.classList.add('active');

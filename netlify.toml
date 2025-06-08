@@ -2,22 +2,8 @@
   publish = "."
   command = "echo 'No build step required'"
 
-# ルートアクセス時のリダイレクト
-[[redirects]]
-  from = "/"
-  to = "/fukuoka/2025/tesshie_vtryo_night"
-  status = 302
-
-# 福岡イベント用のリダイレクト設定
-[[redirects]]
-  from = "/fukuoka/2025/tesshie_vtryo_night"
-  to = "/fukuoka/2025/tesshie_vtryo_night/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/fukuoka/2025/tesshie_vtryo_night/*"
-  to = "/fukuoka/2025/tesshie_vtryo_night/:splat"
-  status = 200
+# リダイレクト設定を削除し、シンプルな構造に変更
+# ルートアクセス時は index.html が表示される
 
 [context.production.environment]
   NODE_ENV = "production"

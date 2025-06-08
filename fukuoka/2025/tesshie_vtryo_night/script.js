@@ -1,26 +1,37 @@
 // DOM要素が読み込まれた後に実行
 document.addEventListener('DOMContentLoaded', function() {
-    // 現在のパスからイベント情報を取得
-    const currentPath = window.location.pathname;
-    const pathParts = currentPath.split('/').filter(part => part);
-    
-    console.log('Current path:', currentPath);
-    console.log('Path parts:', pathParts);
-    
-    // パスが /fukuoka/2025/tesshie_vtryo_night の形式の場合の処理
-    let eventImageBasePath = '/images';
-    if (pathParts.length >= 3) {
-        const location = pathParts[0];
-        const year = pathParts[1]; 
-        const eventName = pathParts[2];
-        eventImageBasePath = `/images/${location}/${year}/${eventName}`;
-        console.log('Event image base path:', eventImageBasePath);
-    }
-    
-    // 画像パス構築関数
-    window.buildImagePath = function(relativePath) {
-        const fullPath = eventImageBasePath + '/' + relativePath;
-        console.log('Building image path:', relativePath, '→', fullPath);
+    // 環境に応じた画像パス生成関数
+    window.buildImagePath = function(imagePath) {
+        // 既に絶対パスの場合はそのまま返す
+        if (imagePath.startsWith('/')) {
+            // ローカルファイル環境の場合は相対パスに変換
+            if (window.location.protocol === 'file:') {
+                // /images/fukuoka/2025/tesshie_vtryo_night/gallery/IMG_XXXX.jpg
+                // → ../../../images/fukuoka/2025/tesshie_vtryo_night/gallery/IMG_XXXX.jpg
+                return '../../../' + imagePath.substring(1);
+            }
+            return imagePath;
+        }
+        
+        // 相対パスの場合（後方互換性のため）
+        const currentPath = window.location.pathname;
+        const pathParts = currentPath.split('/').filter(part => part);
+        
+        let eventImageBasePath = '/images';
+        if (pathParts.length >= 3) {
+            const location = pathParts[0];
+            const year = pathParts[1];
+            const eventName = pathParts[2];
+            eventImageBasePath = `/images/${location}/${year}/${eventName}`;
+        }
+        
+        const fullPath = eventImageBasePath + '/' + imagePath;
+        
+        // ローカルファイル環境の場合は相対パスに変換
+        if (window.location.protocol === 'file:') {
+            return '../../../' + fullPath.substring(1);
+        }
+        
         return fullPath;
     };
     

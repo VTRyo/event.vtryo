@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 相対パスの場合（後方互換性のため）
         const currentPath = window.location.pathname;
-        const pathParts = currentPath.split('/').filter(part => part);
+        // 末尾のスラッシュを除去してから分割（Netlify対応）
+        const pathParts = currentPath.replace(/\/$/, '').split('/').filter(part => part);
         
         let eventImageBasePath = '/images';
         if (pathParts.length >= 3) {

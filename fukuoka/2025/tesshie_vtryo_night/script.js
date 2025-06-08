@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentPath = window.location.pathname;
     const pathParts = currentPath.split('/').filter(part => part);
     
+    console.log('Current path:', currentPath);
+    console.log('Path parts:', pathParts);
+    
     // パスが /fukuoka/2025/tesshie_vtryo_night の形式の場合の処理
     let eventImageBasePath = '/images';
     if (pathParts.length >= 3) {
@@ -11,11 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const year = pathParts[1]; 
         const eventName = pathParts[2];
         eventImageBasePath = `/images/${location}/${year}/${eventName}`;
+        console.log('Event image base path:', eventImageBasePath);
     }
     
     // 画像パス構築関数
     window.buildImagePath = function(relativePath) {
-        return eventImageBasePath + '/' + relativePath;
+        const fullPath = eventImageBasePath + '/' + relativePath;
+        console.log('Building image path:', relativePath, '→', fullPath);
+        return fullPath;
     };
     
     // イベント情報の表示

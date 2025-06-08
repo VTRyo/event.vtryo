@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesshie & VTRyo Night! | 特別コース料理イベント</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <script>
+    // ===== 編集可能なデータ構造 =====
+    // このセクションを編集することで、サイト全体の内容を簡単に更新できます
+    const EVENT_CONFIG = {
+        event: {
+            title: "Tesshie & VTRyo Night!",
+            catchphrase: "二人のシェフが織りなす、一夜限りの特別な味わい",
+            date: "2025-09-13",
+            time: "18:00 - 21:00",
+            description: "マネーフォワードChief Food Officer 二人のシェフが腕を振るう特別なディナーイベントにご招待します。"
+        },
+        chefs: [
+            {
+                name: "Tesshie",
+                fullName: "手島 尚人",
+                profile: "福岡出身。和洋を問わずジャンルに縛られない料理を追求。趣味の延長で始めたホームパーティではコース料理をふるまい、社員を唸らせてきた。味だけでなく、見た目や構成にもこだわる。特技は食べた料理の解析と再現で、意外性のある食材の組み合わせに可能性を感じている。現在はバー「AFTER THE RAIN」でお酒と料理の修行中。ハイボールと記憶に残る特別な一皿を、あなたに。",
+                speciality: "洋食、和食、ハイボール",
+                image: "https://i.gyazo.com/555d73d429b0bbfc4d633d5e3915cda1.png"
+            },
+            {
+                name: "VTRyo",
+                fullName: "りょう",
+                profile: "伊豆大島出身。ラーメンとカレーをこよなく愛する。カレーはスリランカ現地でも食べるほどスリランカ派。得意なお酒はビール。クラフトビール審査員資格を持ち、ジャパン・グレートビア・アワーズ2025では審査員として参加した。世界一ビールを飲む国民がいるチェコに2年連続で訪問。黄金色のラガービールを現地民と飲み明かすのが好き。ペアリング、銘柄、注ぎ方などご質問があればなんなりと。",
+                speciality: "スパイスカレー、ビール",
+                image: "https://pbs.twimg.com/profile_images/1002160404389289984/hzz5vzx3_400x400.jpg"
+            }
+        ],
+        gallery: [
+            // VTRyo photos
+            "images/gallery/IMG_6059.jpeg",
+            "images/gallery/IMG_6058.jpeg",
+            "images/gallery/IMG_6060.jpeg",
+            "images/gallery/IMG_5776.jpg",
+            "images/gallery/IMG_5674.jpg",
+            "images/gallery/IMG_5720.jpg",
+            // Tesshie photos
+            "images/gallery/IMG_9075.jpg",
+            "images/gallery/IMG_9077.jpg",
+            "images/gallery/IMG_9223.jpg",
+            "images/gallery/IMG_9232.jpg",
+            "images/gallery/IMG_9537.jpg",
+            "images/gallery/IMG_9538.jpg",
+            "images/gallery/IMG_9541.jpg",
+            "images/gallery/IMG_9544.jpg",
+            "images/gallery/IMG_9545.jpg",
+            "images/gallery/IMG_9546.jpg",
+            "images/gallery/IMG_9547.jpg",
+            "images/gallery/IMG_9548.jpg",
+            "images/gallery/IMG_9549.jpg",
+            "images/gallery/IMG_9550.jpg",
+        ],
+        heroBackgrounds: [
+            // VTRyo photos
+            "images/gallery/IMG_6059.jpeg",
+            "images/gallery/IMG_5776.jpg",
+            "images/gallery/IMG_6058.jpeg",
+            // Tesshie photos
+            "images/gallery/IMG_9232.jpg",
+            "images/gallery/IMG_9537.jpg",
+            "images/gallery/IMG_9546.jpg"
+        ],
+        venue: {
+            name: "食の交流拠点 るるるる",
+            address: "〒811-3101 福岡県古賀市天神１丁目４−３５ 間借り",
+            phone: "03-1234-5678",
+            access: "博多から電車で20分",
+            mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d526.8098452019909!2d130.46387913037717!3d33.7324407495603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x354189dda145f4df%3A0xc39850c77f954656!2z6aOf44Gu5Lqk5rWB5oug54K5IOOCi-OCi-OCi-OCiw!5e0!3m2!1sja!2sjp!4v1748417056264!5m2!1sja!2sjp"
+        }
+    };
+    </script>
+
+    <!-- ナビゲーションバー -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Tesshie & VTRyo Night!</div>
+            <ul class="nav-links">
+                <li><a href="#home">ホーム</a></li>
+                <li><a href="#chefs">シェフ</a></li>
+                <li><a href="#course">コース</a></li>
+                <li><a href="#gallery">ギャラリー</a></li>
+                <li><a href="#pricing">料金</a></li>
+                <li><a href="#venue">会場</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ヒーローセクション -->
+    <section id="home" class="hero">
+        <div class="hero-slideshow"></div>
+        <div class="overlay"></div>
+        <div class="container">
+            <h1 id="event-title"></h1>
+            <p id="event-catchphrase" class="subtitle"></p>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <span id="days">00</span>
+                    <span class="countdown-label">日</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="hours">00</span>
+                    <span class="countdown-label">時間</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="minutes">00</span>
+                    <span class="countdown-label">分</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="seconds">00</span>
+                    <span class="countdown-label">秒</span>
+                </div>
+            </div>
+            <p id="event-date" class="date"></p>
+            <p class="reservation-closed">※予約は締め切られました</p>
+
+            <div class="gallery-link-container">
+              <a href="#gallery" class="gallery-link">料理ギャラリーをみる</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- シェフプロフィール -->
+    <section id="chefs" class="chefs">
+        <div class="container">
+            <h2 class="section-title">シェフ紹介</h2>
+            <p class="section-subtitle">二人の個性が織りなす、特別な一夜</p>
+            <div class="chefs-container" id="chefs-container">
+                <!-- シェフプロフィールはJavaScriptで動的に生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- コース詳細 -->
+    <section id="course" class="course">
+        <div class="container">
+            <h2 class="section-title">コース料理</h2>
+            <p class="section-subtitle">食を前へ。人生を前へ</p>
+            <div class="coming-soon">
+                <p>Coming soon...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ギャラリー -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title">ギャラリー</h2>
+            <p class="section-subtitle">特別な料理の数々</p>
+            <div class="gallery-container">
+                <div class="gallery-slider">
+                    <div class="gallery-slides" id="gallery-slides">
+                        <!-- スライドはJavaScriptで動的に生成 -->
+                    </div>
+                    <button class="gallery-prev" id="gallery-prev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="gallery-next" id="gallery-next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 参加費・予約情報 -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">料金</h2>
+            <p class="section-subtitle">特別な一夜をお手頃価格で</p>
+            <div class="pricing-container">
+                <div class="pricing-card">
+                    <h3>コース料理</h3>
+                    <div class="price">未定</div>
+                </div>
+            </div>
+            <div class="payment-info">
+                <h3>お支払い方法</h3>
+                <p class="content-center">現金、PayPayがご利用いただけます。</p>
+            </div>
+            <div class="reservation-button">
+                <p class="reservation-closed">※予約は締め切られました</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 会場情報 -->
+    <section id="venue" class="venue">
+        <div class="container">
+            <h2 class="section-title">会場情報</h2>
+            <p class="section-subtitle">アクセス便利な貸切空間</p>
+            <div class="venue-container">
+                <div class="venue-info">
+                    <h3 id="venue-name"></h3>
+                    <p id="venue-address"></p>
+                    <p id="venue-phone"></p>
+                    <h4>アクセス</h4>
+                    <p id="venue-access"></p>
+                </div>
+                <div class="venue-map" id="venue-map">
+                    <!-- 地図はJavaScriptで動的に生成 -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Tesshie & VTRyo Night!</div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="#home">ホーム</a></li>
+                        <li><a href="#chefs">シェフ</a></li>
+                        <li><a href="#course">コース</a></li>
+                        <li><a href="#gallery">ギャラリー</a></li>
+                        <li><a href="#pricing">料金</a></li>
+                        <li><a href="#venue">会場</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Tesshie & VTRyo Night! All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

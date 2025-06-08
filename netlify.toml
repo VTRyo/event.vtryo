@@ -1,16 +1,6 @@
 [build]
-  publish = "."
+  publish = "fukuoka/2025/tesshie_vtryo_night"
   command = "echo 'No build step required'"
-
-[[redirects]]
-  from = "/fukuoka/2025/tessie_vtryo_night"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/fukuoka/2025/tessie_vtryo_night/*"
-  to = "/index.html"
-  status = 200
 
 [context.production.environment]
   NODE_ENV = "production"

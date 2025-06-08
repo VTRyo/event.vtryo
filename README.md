@@ -1,7 +1,3 @@
-# Food Event Websites - モノレポ
-
-マネーフォワードChief Food Officerによる食事イベントの宣伝サイト集です。
-
 ## プロジェクト構造
 
 ```
@@ -29,14 +25,6 @@ tessi_vtryo_night/
         └── 2025/
             └── [future_event]/
 ```
-
-## 現在のイベント
-
-### 福岡 2025年 - Tesshie & VTRyo Night!
-- **パス**: `fukuoka/2025/tesshie_vtryo_night/`
-- **日時**: 2025年8月23日 18:00-21:00
-- **シェフ**: Tesshie（手島尚人）& VTRyo（りょう）
-- **会場**: 食の交流拠点 るるるる
 
 ## Netlify設定
 

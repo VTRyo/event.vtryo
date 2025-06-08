@@ -16,7 +16,7 @@
         event: {
             title: "Tesshie & VTRyo Night!",
             catchphrase: "二人のシェフが織りなす、一夜限りの特別な味わい",
-            date: "2025-08-23",
+            date: "2025-09-13",
             time: "18:00 - 21:00",
             description: "マネーフォワードChief Food Officer 二人のシェフが腕を振るう特別なディナーイベントにご招待します。"
         },
@@ -36,54 +36,35 @@
                 image: "https://pbs.twimg.com/profile_images/1002160404389289984/hzz5vzx3_400x400.jpg"
             }
         ],
-        courses: [
-            {
-                name: "前菜",
-                description: "",
-                image: "https://placehold.jp/e8c39e/ffffff/400x300.png?text=前菜"
-            },
-            {
-                name: "メインディッシュ",
-                description: "",
-                image: "https://placehold.jp/e8c39e/ffffff/400x300.png?text=メイン"
-            },
+        gallery: [
+            "images/gallery/IMG_5507.jpg",
+            "images/gallery/IMG_5583.jpg",
+            "images/gallery/IMG_5674.jpg",
+            "images/gallery/IMG_5720.jpg",
+            "images/gallery/IMG_5776.jpg",
+            "images/gallery/IMG_5777.jpg",
+            "images/gallery/IMG_9075.jpg",
+            "images/gallery/IMG_9077.jpg",
+            "images/gallery/IMG_9223.jpg",
+            "images/gallery/IMG_9232.jpg",
+            "images/gallery/IMG_9537.jpg",
+            "images/gallery/IMG_9538.jpg",
+            "images/gallery/IMG_9541.jpg",
+            "images/gallery/IMG_9544.jpg",
+            "images/gallery/IMG_9545.jpg",
+            "images/gallery/IMG_9546.jpg",
+            "images/gallery/IMG_9547.jpg",
+            "images/gallery/IMG_9548.jpg",
+            "images/gallery/IMG_9549.jpg",
+            "images/gallery/IMG_9550.jpg"
         ],
-        drinks: [
-            {
-                category: "ワイン",
-                items: [
-                    { name: "シャルドネ（白）", description: "フルーティーな香りと爽やかな酸味", price: 1200 },
-                    { name: "カベルネ・ソーヴィニヨン（赤）", description: "濃厚な果実味とタンニン", price: 1200 },
-                    { name: "スパークリングワイン", description: "祝福の場にふさわしい華やかな泡立ち", price: 1500 }
-                ]
-            },
-            {
-                category: "日本酒",
-                items: [
-                    { name: "純米大吟醸", description: "フルーティーでまろやかな味わい", price: 1300 },
-                    { name: "特別純米酒", description: "米の旨味が感じられる辛口", price: 1100 }
-                ]
-            },
-            {
-                category: "カクテル",
-                items: [
-                    { name: "パッションフルーツモヒート", description: "南国フルーツの爽やかさとミントの清涼感", price: 1200 },
-                    { name: "スパイシージンジャーモスコミュール", description: "ジンジャーの辛さとライムの酸味", price: 1200 },
-                    { name: "レモングラスとライムのトム・コリンズ", description: "エスニックな香りとジンの相性が抜群", price: 1300 }
-                ]
-            },
-            {
-                category: "ノンアルコール",
-                items: [
-                    { name: "ハーブティー", description: "オリジナルブレンドの香り高いハーブティー", price: 800 },
-                    { name: "トロピカルフルーツジュース", description: "季節のフルーツを使った特製ジュース", price: 900 },
-                    { name: "スパイスチャイ", description: "本格的なスパイスの香りが楽しめるチャイ", price: 800 }
-                ]
-            }
+        heroBackgrounds: [
+            "images/gallery/IMG_5583.jpg",
+            "images/gallery/IMG_5776.jpg",
+            "images/gallery/IMG_9232.jpg",
+            "images/gallery/IMG_9537.jpg",
+            "images/gallery/IMG_9546.jpg"
         ],
-        pricing: {
-            course: 5000,
-        },
         venue: {
             name: "食の交流拠点 るるるる",
             address: "〒811-3101 福岡県古賀市天神１丁目４−３５ 間借り",
@@ -102,10 +83,10 @@
                 <li><a href="#home">ホーム</a></li>
                 <li><a href="#chefs">シェフ</a></li>
                 <li><a href="#course">コース</a></li>
-                <li><a href="#drinks">ドリンク</a></li>
+                <li><a href="#gallery">ギャラリー</a></li>
                 <li><a href="#pricing">料金</a></li>
                 <li><a href="#venue">会場</a></li>
-                <li><a href="#reservation" class="btn-reserve">予約する</a></li>
+                <li><a href="https://chouseisan.com/s?h=f1990913133e4cccac1a945f89def3a3" class="btn-reserve" target="_blank">予約する</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -117,6 +98,7 @@
 
     <!-- ヒーローセクション -->
     <section id="home" class="hero">
+        <div class="hero-slideshow"></div>
         <div class="overlay"></div>
         <div class="container">
             <h1 id="event-title"></h1>
@@ -140,7 +122,12 @@
                 </div>
             </div>
             <p id="event-date" class="date"></p>
-            <a href="#reservation" class="btn-primary">今すぐ予約する</a>
+            <a href="https://chouseisan.com/s?h=f1990913133e4cccac1a945f89def3a3" class="btn-primary" target="_blank">今すぐ予約する</a>
+            
+            <div class="qr-code-container">
+                <img src="images/qr-code.png" alt="予約用QRコード" />
+                <p>QRコードからも予約できます</p>
+            </div>
         </div>
     </section>
 
@@ -159,25 +146,30 @@
     <section id="course" class="course">
         <div class="container">
             <h2 class="section-title">コース料理</h2>
-            <p class="section-subtitle">洋食とエスニックの絶妙な融合</p>
-            <div class="course-container" id="course-container">
-                <!-- コース詳細はJavaScriptで動的に生成 -->
+            <p class="section-subtitle">食を前へ。人生を前へ</p>
+            <div class="coming-soon">
+                <p>Coming soon...</p>
             </div>
         </div>
     </section>
 
-    <!-- ドリンクメニュー -->
-    <section id="drinks" class="drinks">
+    <!-- ギャラリー -->
+    <section id="gallery" class="gallery">
         <div class="container">
-            <h2 class="section-title">ドリンクメニュー</h2>
-            <p class="section-subtitle">料理を引き立てる厳選ドリンク</p>
-            <div class="drinks-container" id="drinks-container">
-                <!-- ドリンクメニューはJavaScriptで動的に生成 -->
-            </div>
-            <div class="pairing-info">
-                <h3>ペアリングについて</h3>
-                <p>コース料理に合わせた特別なドリンクペアリングもご用意しております。各料理の魅力を最大限に引き出す組み合わせをお楽しみください。</p>
-                <p>ペアリングをご希望の方は、予約時にお申し付けください。</p>
+            <h2 class="section-title">ギャラリー</h2>
+            <p class="section-subtitle">特別な料理の数々</p>
+            <div class="gallery-container">
+                <div class="gallery-slider">
+                    <div class="gallery-slides" id="gallery-slides">
+                        <!-- スライドはJavaScriptで動的に生成 -->
+                    </div>
+                    <button class="gallery-prev" id="gallery-prev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="gallery-next" id="gallery-next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -190,31 +182,15 @@
             <div class="pricing-container">
                 <div class="pricing-card">
                     <h3>コース料理</h3>
-                    <div class="price" id="course-price"></div>
-                    <ul>
-                        <li>前菜</li>
-                        <li>メインディッシュ</li>
-                        <li>デザート</li>
-                        <li>コーヒーまたは紅茶</li>
-                    </ul>
-                </div>
-                <div class="pricing-card">
-                    <h3>ドリンクペアリング</h3>
-                    <div class="price" id="drinks-price"></div>
-                    <ul>
-                        <li>前菜に合わせたドリンク</li>
-                        <li>メインに合わせたドリンク</li>
-                        <li>デザートに合わせたドリンク</li>
-                    </ul>
+                    <div class="price">未定</div>
                 </div>
             </div>
-            <p class="tax-info" id="tax-info"></p>
             <div class="payment-info">
                 <h3>お支払い方法</h3>
-                <p>クレジットカード（VISA, MasterCard, JCB, AMEX）、現金、QRコード決済（PayPay, LINE Pay）がご利用いただけます。</p>
+                <p>現金、PayPayがご利用いただけます。</p>
             </div>
             <div class="reservation-button">
-                <a href="#reservation" class="btn-primary">予約する</a>
+                <a href="https://chouseisan.com/s?h=f1990913133e4cccac1a945f89def3a3" class="btn-primary" target="_blank">予約する</a>
             </div>
         </div>
     </section>
@@ -239,74 +215,24 @@
         </div>
     </section>
 
-    <!-- 予約モーダル -->
-    <div id="reservation" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>ご予約</h2>
-            <form id="reservation-form">
-                <div class="form-group">
-                    <label for="name">お名前</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">メールアドレス</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">電話番号</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="guests">人数</label>
-                    <select id="guests" name="guests" required>
-                        <option value="1">1名</option>
-                        <option value="2" selected>2名</option>
-                        <option value="3">3名</option>
-                        <option value="4">4名</option>
-                        <option value="5">5名</option>
-                        <option value="6">6名</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="pairing">ドリンクペアリング</label>
-                    <select id="pairing" name="pairing">
-                        <option value="yes">希望する</option>
-                        <option value="no">希望しない</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="notes">備考</label>
-                    <textarea id="notes" name="notes" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn-primary">予約を確定する</button>
-            </form>
-        </div>
-    </div>
-
     <!-- フッター -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">tessi-&VTRyo Night!</div>
+                <div class="footer-logo">Tesshie & VTRyo Night!</div>
                 <div class="footer-links">
                     <ul>
                         <li><a href="#home">ホーム</a></li>
                         <li><a href="#chefs">シェフ</a></li>
                         <li><a href="#course">コース</a></li>
-                        <li><a href="#drinks">ドリンク</a></li>
+                        <li><a href="#gallery">ギャラリー</a></li>
                         <li><a href="#pricing">料金</a></li>
                         <li><a href="#venue">会場</a></li>
                     </ul>
                 </div>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                </div>
             </div>
             <div class="copyright">
-                &copy; 2025 tessi-&VTRyo Night! All Rights Reserved.
+                &copy; 2025 Tesshie & VTRyo Night! All Rights Reserved.
             </div>
         </div>
     </footer>

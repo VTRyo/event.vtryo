@@ -1,6 +1,23 @@
 [build]
-  publish = "fukuoka/2025/tesshie_vtryo_night"
+  publish = "."
   command = "echo 'No build step required'"
+
+# 福岡イベント用のリダイレクト設定
+[[redirects]]
+  from = "/fukuoka/2025/tesshie_vtryo_night"
+  to = "/fukuoka/2025/tesshie_vtryo_night/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/fukuoka/2025/tesshie_vtryo_night/*"
+  to = "/fukuoka/2025/tesshie_vtryo_night/:splat"
+  status = 200
+
+# ルートアクセス時のリダイレクト（オプション）
+[[redirects]]
+  from = "/"
+  to = "/fukuoka/2025/tesshie_vtryo_night"
+  status = 302
 
 [context.production.environment]
   NODE_ENV = "production"

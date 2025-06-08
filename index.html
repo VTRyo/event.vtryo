@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Events by VTRyo & Tesshie</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #ff9a56, #ffb380);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+        .event-list {
+            display: grid;
+            gap: 20px;
+        }
+        .event-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background: #f9f9f9;
+            transition: transform 0.2s ease;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+        .event-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .event-title {
+            font-size: 1.4em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .event-details {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .event-link {
+            display: inline-block;
+            background: #ff9a56;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.2s ease;
+        }
+        .event-link:hover {
+            background: #e67e22;
+        }
+        .error-message {
+            text-align: center;
+            color: #e74c3c;
+            padding: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍽️ Food Events</h1>
+        <div id="loading" class="loading">イベント情報を読み込み中...</div>
+        <div id="event-list" class="event-list" style="display: none;"></div>
+        <div id="error-message" class="error-message" style="display: none;"></div>
+    </div>
+
+    <script>
+        // イベント設定のマッピング
+        const EVENT_MAPPINGS = [
+            {
+                path: '/fukuoka/2025/tesshie_vtryo_night',
+                configUrl: '/fukuoka/2025/tesshie_vtryo_night/index.html'
+            }
+            // 新しいイベントはここに追加
+            // {
+            //     path: '/tokyo/2025/spring_event',
+            //     configUrl: '/tokyo/2025/spring_event/index.html'
+            // }
+        ];
+
+        // イベント設定を抽出する関数
+        function extractEventConfig(htmlContent) {
+            try {
+                // EVENT_CONFIG オブジェクトを抽出
+                const configMatch = htmlContent.match(/const EVENT_CONFIG\s*=\s*({[\s\S]*?});/);
+                if (!configMatch) {
+                    throw new Error('EVENT_CONFIG not found');
+                }
+                
+                // JSONとして解析（ただし、JavaScriptオブジェクトなので評価が必要）
+                const configString = configMatch[1];
+                const config = eval('(' + configString + ')');
+                return config;
+            } catch (error) {
+                console.error('Failed to extract event config:', error);
+                return null;
+            }
+        }
+
+        // 日付をフォーマットする関数
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ja-JP', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // イベントカードを作成する関数
+        function createEventCard(eventData, eventPath) {
+            const config = eventData.event;
+            const venue = eventData.venue;
+            const chefs = eventData.chefs;
+            
+            const chefNames = chefs.map(chef => chef.name).join(' & ');
+            const formattedDate = formatDate(config.date);
+            
+            return `
+                <div class="event-card">
+                    <div class="event-title">${config.title}</div>
+                    <div class="event-details">
+                        📍 ${venue.name}<br>
+                        📅 ${formattedDate} ${config.time}<br>
+                        👨‍🍳 ${chefNames}<br>
+                        💭 ${config.catchphrase}
+                    </div>
+                    <a href="${eventPath}" class="event-link">詳細を見る</a>
+                </div>
+            `;
+        }
+
+        // すべてのイベントを読み込む関数
+        async function loadEvents() {
+            const eventListContainer = document.getElementById('event-list');
+            const loadingElement = document.getElementById('loading');
+            const errorElement = document.getElementById('error-message');
+            
+            try {
+                const eventPromises = EVENT_MAPPINGS.map(async (mapping) => {
+                    try {
+                        const response = await fetch(mapping.configUrl);
+                        if (!response.ok) {
+                            throw new Error(`Failed to fetch ${mapping.configUrl}`);
+                        }
+                        
+                        const htmlContent = await response.text();
+                        const config = extractEventConfig(htmlContent);
+                        
+                        if (!config) {
+                            throw new Error(`No valid config found in ${mapping.configUrl}`);
+                        }
+                        
+                        return {
+                            config: config,
+                            path: mapping.path
+                        };
+                    } catch (error) {
+                        console.warn(`Failed to load event from ${mapping.path}:`, error);
+                        return null;
+                    }
+                });
+
+                const events = await Promise.all(eventPromises);
+                const validEvents = events.filter(event => event !== null);
+
+                if (validEvents.length === 0) {
+                    throw new Error('有効なイベントが見つかりませんでした');
+                }
+
+                // イベントカードを生成
+                const eventCards = validEvents
+                    .map(event => createEventCard(event.config, event.path))
+                    .join('');
+
+                eventListContainer.innerHTML = eventCards;
+                
+                // 表示の切り替え
+                loadingElement.style.display = 'none';
+                eventListContainer.style.display = 'grid';
+
+            } catch (error) {
+                console.error('Error loading events:', error);
+                errorElement.textContent = `エラー: ${error.message}`;
+                loadingElement.style.display = 'none';
+                errorElement.style.display = 'block';
+            }
+        }
+
+        // ページ読み込み完了後にイベントを読み込み
+        document.addEventListener('DOMContentLoaded', loadEvents);
+    </script>
+</body>
+</html>

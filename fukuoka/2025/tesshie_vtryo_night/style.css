@@ -751,9 +751,19 @@ section
     font-size: 2.5rem;
     font-weight: 700;
 
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 
     color: var(--secondary-color);
+}
+
+.price-note
+{
+    font-size: 0.9rem;
+    font-style: italic;
+
+    margin-bottom: 1.5rem;
+
+    color: var(--text-light);
 }
 
 .tax-info

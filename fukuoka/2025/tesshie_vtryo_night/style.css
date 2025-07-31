@@ -577,21 +577,122 @@ section
     margin-bottom: 1.5rem;
 }
 
+/* ===== SNSリンク ===== */
+.social-links
+{
+    margin-top: 50px;
+    text-align: center;
+}
+
+.social-links h3
+{
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
+.social-icons
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-icon
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 25px;
+    background-color: #fff;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.social-icon:hover
+{
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, .15);
+    color: var(--primary-color);
+}
+
+.social-icon i
+{
+    font-size: 1.2rem;
+}
+
+.social-icon .fab.fa-x-twitter
+{
+    color: #000;
+}
+
+.social-icon .fab.fa-instagram
+{
+    color: #E4405F;
+}
+
+.social-icon span
+{
+    font-weight: 500;
+}
+
 /* ===== コース詳細 ===== */
 .course
 {
     background-color: var(--bg-light);
 }
 
-.coming-soon
+.course-details
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 2rem;
+}
+
+.course-item
+{
+    flex: 1;
+    min-width: 250px;
+    max-width: 350px;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: var(--shadow);
+}
+
+.course-item h3
 {
     font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+
+.dish-info h4
+{
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
+}
+
+.chef-credit
+{
+    font-size: 1rem;
     font-style: italic;
+    color: var(--text-light);
+}
 
-    padding: 50px 0;
-
-    text-align: center;
-
+.coming-soon-text
+{
+    font-size: 1.2rem;
+    font-style: italic;
     color: var(--text-light);
 }
 
@@ -792,6 +893,55 @@ section
     text-align: center;
 
     color: var(--primary-color);
+}
+
+.important-notes
+{
+    margin-bottom: 30px;
+    padding: 30px;
+
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: var(--shadow);
+}
+
+.important-notes h3
+{
+    margin-bottom: 1rem;
+
+    text-align: center;
+
+    color: var(--primary-color);
+}
+
+.important-notes ul
+{
+    list-style: none;
+    padding-left: 0;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.important-notes li
+{
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    color: var(--text-color);
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+}
+
+.important-notes li::before
+{
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
 }
 
 .reservation-button
